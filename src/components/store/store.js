@@ -4,6 +4,7 @@ const cartSlice = createSlice ({
   name : "cartShow",
   initialState : {
     isCartVisible:false,
+    notification : null,
     items : [],
     totalQuantity : 0,
     totalPrice :0
@@ -12,6 +13,15 @@ const cartSlice = createSlice ({
     toggle(state) {
         state.isCartVisible = !state.isCartVisible
     },
+
+    showNotification(state, action) {
+      state.notification = {
+        status: action.payload.status,
+        title: action.payload.title,
+        message: action.payload.message,
+      };
+    },
+
     addItemToCart(state, action) {
         const newItem = action.payload;
         const existingItem = state.items.find((item) => item.id === newItem.id);
@@ -30,6 +40,7 @@ const cartSlice = createSlice ({
   
         }
     },
+
     removeItemFromCart(state,action) {
       const id = action.payload;
       const existingItem = state.items.find(item => item.id === id);
